@@ -28,14 +28,29 @@ const server = new Server(
   }
 );
 
-// Setup resources (template content, patterns, context)
-setupResources(server);
+try {
+  // Setup resources (template content, patterns, context)
+  setupResources(server);
+  console.error('Resources setup complete');
+} catch (error) {
+  console.error('Failed to setup resources:', error);
+}
 
-// Setup tools (generators, validators, analyzers)
-setupTools(server);
+try {
+  // Setup tools (generators, validators, analyzers)
+  setupTools(server);
+  console.error('Tools setup complete');
+} catch (error) {
+  console.error('Failed to setup tools:', error);
+}
 
-// Setup prompts (workflow templates)
-setupPrompts(server);
+try {
+  // Setup prompts (workflow templates)
+  setupPrompts(server);
+  console.error('Prompts setup complete');
+} catch (error) {
+  console.error('Failed to setup prompts:', error);
+}
 
 // Handle errors
 server.onerror = (error) => {
@@ -46,7 +61,7 @@ server.onerror = (error) => {
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error('AI Agent Template MCP Server started');
+  console.error('MCP Context Manager Server started successfully');
 }
 
 main().catch((error) => {

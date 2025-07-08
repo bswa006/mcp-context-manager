@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "context-manager": {
+      "command": "npx",
+      "args": ["--yes", "mcp-context-manager@latest"],
+      "env": {}
+    }
+  }
+}

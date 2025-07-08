@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "context-manager": {
+      "command": "node",
+      "args": ["/Users/biswa/.nvm/versions/node/v22.16.0/lib/node_modules/mcp-context-manager/dist/cli.js"],
+      "env": {}
+    }
+  }
+}

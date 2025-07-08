@@ -25,6 +25,7 @@ import { toolDefinitions } from './tool-definitions.js';
 export function setupTools(server: Server) {
   // Handle tool listing
   server.setRequestHandler(ListToolsRequestSchema, async () => {
+    console.error(`Handling tools/list request, returning ${toolDefinitions.length} tools`);
     return { tools: toolDefinitions };
   });
 
