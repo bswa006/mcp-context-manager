@@ -1,9 +1,12 @@
 {
   "name": "mcp-context-manager",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "MCP server for AI Agent Template - Provides structured patterns and context for AI-assisted development",
   "main": "dist/server.js",
   "type": "module",
+  "bin": {
+    "mcp-context-manager": "dist/cli.js"
+  },
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
