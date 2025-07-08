@@ -1,0 +1,44 @@
+# Source files (only dist is needed)
+src/
+*.ts
+!*.d.ts
+
+# Config files
+tsconfig.json
+.eslintrc.json
+
+# Git
+.git/
+.gitignore
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Test files
+test/
+__tests__/
+*.test.js
+*.spec.js
+
+# Build artifacts
+*.tsbuildinfo
+
+# Token tracking
+.token-usage/
+.context-scheduler/
+
+# Example files
+examples/
+
+# Development files
+*.map
