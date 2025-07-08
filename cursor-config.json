@@ -1,9 +1,0 @@
-{
-  "mcpServers": {
-    "context-manager": {
-      "command": "npx",
-      "args": ["mcp-context-manager"],
-      "env": {}
-    }
-  }
-}

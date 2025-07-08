@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-import './minimal-server.js';
+import './server.js';
