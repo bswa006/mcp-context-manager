@@ -1,0 +1,56 @@
+CURSOR INTEGRATION INSTRUCTIONS
+==============================
+
+Since Cursor doesn't natively support MCP (Model Context Protocol) servers yet, here are the best ways to use MCP Context Manager with Cursor:
+
+OPTION 1: MANUAL CONTEXT SETUP
+-----------------------------
+1. In your project root, create these files manually:
+   - PROJECT-TEMPLATE.md
+   - CODEBASE-CONTEXT.md
+
+2. Ask Cursor AI to analyze your codebase and fill these templates:
+   "Please analyze this entire codebase and create a comprehensive PROJECT-TEMPLATE.md file. Include all tech stack details, architecture patterns, naming conventions, and development workflows. Then create CODEBASE-CONTEXT.md with our specific coding patterns."
+
+3. Add .cursorrules file (already created) to your project root
+
+4. Cursor will now automatically read these files before generating code
+
+
+OPTION 2: USE THE CLI HELPER
+---------------------------
+1. In terminal, run:
+   cd /your/project
+   npx /Users/biswa/Desktop/ai-agent-template/ai-agent-template-mcp/packages/mcp-agent init
+
+2. This creates .mcp/INSTRUCTIONS.md with detailed steps
+
+3. Copy the instructions into Cursor and ask it to follow them
+
+
+OPTION 3: CURSOR CUSTOM INSTRUCTIONS
+-----------------------------------
+Add this to Cursor Settings > Custom Instructions:
+
+"Before writing any code, always:
+1. Check for PROJECT-TEMPLATE.md in the root directory
+2. Check for CODEBASE-CONTEXT.md in the root directory
+3. Read both files completely
+4. Follow all patterns, conventions, and constraints defined there
+5. If these files don't exist, offer to create them by analyzing the codebase"
+
+
+QUICK TEST
+----------
+To test if it's working, ask Cursor:
+"What are the coding conventions for this project according to CODEBASE-CONTEXT.md?"
+
+If Cursor can answer with specific details, it's working!
+
+
+TIPS
+----
+- Keep context files updated as your project evolves
+- Review AI-generated context files for accuracy
+- The .cursorrules file helps Cursor follow your patterns
+- Remind Cursor to check context files if it forgets

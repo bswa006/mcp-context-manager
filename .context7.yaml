@@ -1,0 +1,239 @@
+# Context7 Configuration for AI Agent Template MCP Server
+# This enables real-time documentation to prevent hallucinations
+
+# Core JavaScript/TypeScript ecosystem
+libraries:
+  # React - Latest version
+  - id: /react/docs
+    version: 19.0.0
+    topics: 
+      - "hooks"
+      - "components" 
+      - "server-components"
+      - "suspense"
+      - "error-boundaries"
+      - "performance"
+      - "testing"
+    priority: high
+
+  # Next.js - App Router era
+  - id: /nextjs/docs
+    version: 15.0.0
+    topics:
+      - "app-router"
+      - "server-actions"
+      - "middleware"
+      - "data-fetching"
+      - "caching"
+      - "deployment"
+      - "performance"
+    priority: high
+
+  # TypeScript
+  - id: /typescript/docs
+    version: 5.3.0
+    topics:
+      - "types"
+      - "interfaces"
+      - "generics"
+      - "decorators"
+      - "modules"
+      - "strict-mode"
+      - "utility-types"
+    priority: high
+
+  # Node.js
+  - id: /nodejs/docs
+    version: 20.0.0
+    topics:
+      - "modules"
+      - "async"
+      - "streams"
+      - "fs"
+      - "crypto"
+      - "testing"
+    priority: medium
+
+  # Testing Frameworks
+  - id: /jest/docs
+    version: 29.0.0
+    topics:
+      - "testing"
+      - "mocking"
+      - "coverage"
+      - "snapshots"
+    priority: medium
+
+  - id: /vitest/docs
+    version: 1.0.0
+    topics:
+      - "testing"
+      - "vite-integration"
+      - "coverage"
+    priority: medium
+
+  # Popular UI Libraries
+  - id: /tailwindcss/docs
+    version: 3.4.0
+    topics:
+      - "utilities"
+      - "components"
+      - "responsive"
+      - "dark-mode"
+    priority: medium
+
+  - id: /mui/docs
+    version: 5.0.0
+    topics:
+      - "components"
+      - "theming"
+      - "system"
+    priority: low
+
+  # State Management
+  - id: /zustand/docs
+    version: 4.0.0
+    topics:
+      - "state"
+      - "actions"
+      - "middleware"
+    priority: low
+
+  - id: /tanstack-query/docs
+    version: 5.0.0
+    topics:
+      - "data-fetching"
+      - "caching"
+      - "mutations"
+    priority: medium
+
+  # Build Tools
+  - id: /vite/docs
+    version: 5.0.0
+    topics:
+      - "config"
+      - "plugins"
+      - "optimization"
+    priority: medium
+
+  - id: /webpack/docs
+    version: 5.0.0
+    topics:
+      - "config"
+      - "loaders"
+      - "plugins"
+    priority: low
+
+  # Backend Frameworks
+  - id: /express/docs
+    version: 4.0.0
+    topics:
+      - "routing"
+      - "middleware"
+      - "error-handling"
+    priority: low
+
+  - id: /fastify/docs
+    version: 4.0.0
+    topics:
+      - "routing"
+      - "plugins"
+      - "validation"
+    priority: low
+
+  # Database/ORM
+  - id: /prisma/docs
+    version: 5.0.0
+    topics:
+      - "schema"
+      - "queries"
+      - "migrations"
+    priority: medium
+
+  - id: /mongoose/docs
+    version: 8.0.0
+    topics:
+      - "schemas"
+      - "models"
+      - "queries"
+    priority: low
+
+# Configuration settings
+settings:
+  # Check for updates every 24 hours
+  update_frequency: daily
+  
+  # Cache documentation for offline use
+  cache_enabled: true
+  cache_duration: 7d
+  
+  # Fallback to cached version if API fails
+  fallback_to_cache: true
+  
+  # Alert when using deprecated APIs
+  deprecation_warnings: true
+  
+  # Track API usage for analytics
+  usage_tracking: true
+
+# Integration settings
+integrations:
+  # MCP Server integration
+  mcp:
+    enabled: true
+    auto_verify: true
+    suggest_alternatives: true
+  
+  # IDE integrations
+  vscode:
+    enabled: true
+    show_inline_docs: true
+  
+  cursor:
+    enabled: true
+    real_time_validation: true
+
+# Custom rules for version compatibility
+compatibility_rules:
+  - name: "React 19 with Next.js 15"
+    check: "react >= 19.0.0 requires next >= 15.0.0"
+    
+  - name: "TypeScript strict mode"
+    check: "typescript >= 5.0.0 recommends strict: true"
+    
+  - name: "Node.js compatibility"
+    check: "node >= 18.0.0 for all modern features"
+
+# Hallucination prevention rules
+hallucination_prevention:
+  # Common mistakes to catch
+  rules:
+    - pattern: "Array.prototype.findLast"
+      minimum_version: "node >= 18.0.0"
+      alternative: "Use .slice().reverse().find() for older versions"
+      
+    - pattern: "String.prototype.replaceAll"
+      minimum_version: "node >= 15.0.0"
+      alternative: "Use .replace(/pattern/g) for older versions"
+      
+    - pattern: "React.useSyncExternalStore"
+      minimum_version: "react >= 18.0.0"
+      alternative: "Not available in React 17"
+      
+    - pattern: "Promise.any"
+      minimum_version: "node >= 15.0.0"
+      alternative: "Use Promise.race with error handling"
+
+# Performance optimization
+performance:
+  # Preload commonly used documentation
+  preload:
+    - /react/docs/hooks
+    - /typescript/docs/types
+    - /nextjs/docs/app-router
+  
+  # Lazy load less common documentation
+  lazy_load: true
+  
+  # Maximum concurrent API requests
+  max_concurrent_requests: 5

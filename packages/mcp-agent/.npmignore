@@ -1,0 +1,43 @@
+# Source files (only publish dist)
+src/
+*.ts
+
+# Development files
+tsconfig.json
+.eslintrc
+jest.config.js
+*.test.js
+*.test.ts
+
+# Documentation files not needed in package
+DEEP-ANALYSIS-FEATURE.md
+SERVER-CAPABILITIES.md
+PUBLISHING-GUIDE.md
+
+# Git
+.git/
+.gitignore
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependencies
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Keep these
+!dist/
+!README.md
+!LICENSE
+!package.json
+!CHANGELOG.md
