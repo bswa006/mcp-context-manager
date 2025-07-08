@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import * as yaml from 'js-yaml';
-import { glob } from 'glob';
+import glob from 'glob';
 
 interface ContextMetadata {
   version?: string;
@@ -56,7 +56,7 @@ export class ContextValidator {
     
     const files: string[] = [];
     for (const pattern of patterns) {
-      const matches = await glob(pattern, { cwd: this.contextPath });
+      const matches = glob.sync(pattern, { cwd: this.contextPath });
       files.push(...matches);
     }
 
