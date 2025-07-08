@@ -16,8 +16,8 @@ import { setupPrompts } from './prompts/index.js';
 // Initialize MCP server
 const server = new Server(
   {
-    name: 'ai-agent-template-mcp',
-    version: '1.0.0',
+    name: 'mcp-context-manager',
+    version: '2.0.1',
   },
   {
     capabilities: {

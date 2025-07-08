@@ -71,6 +71,21 @@ Then add to your Claude Desktop config:
 }
 ```
 
+**Note**: After updating Claude Desktop config, restart Claude Desktop completely for changes to take effect.
+
+If you still see "0 tools enabled", try this alternative configuration:
+```json
+{
+  "mcpServers": {
+    "context-manager": {
+      "command": "node",
+      "args": ["/path/to/global/node_modules/mcp-context-manager/dist/cli.js"]
+    }
+  }
+}
+```
+To find the global node_modules path, run: `npm root -g`
+
 ### Option 2: Clone and Build Locally
 ```bash
 # Clone the repository
