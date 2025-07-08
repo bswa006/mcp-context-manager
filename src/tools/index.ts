@@ -13,6 +13,11 @@ import { detectExistingPatterns } from './analyzers/pattern-detector.js';
 import { initializeAgentWorkspace } from './workspace/initialize-workspace.js';
 import { generateTestsForCoverage } from './testing/test-generator.js';
 import { trackAgentPerformance } from './performance/track-performance.js';
+import { analyzeCodebaseDeeply } from './workspace/analyze-codebase-deeply.js';
+import { createProjectTemplate } from './workspace/create-project-template.js';
+import { createCodebaseContext } from './workspace/create-codebase-context.js';
+import { completeSetupWorkflow } from './workspace/complete-setup-workflow.js';
+import { routeContext } from './context-router.js';
 import { toolDefinitions } from './tool-definitions.js';
 
 export function setupTools(server: Server) {
@@ -164,6 +169,97 @@ export function setupTools(server: Server) {
           }).parse(args);
           
           const result = await generateTestsForCoverage(params);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2),
+              },
+            ],
+          };
+        }
+
+        case 'analyze_codebase_deeply': {
+          const params = z.object({
+            projectPath: z.string(),
+          }).parse(args);
+          
+          const result = await analyzeCodebaseDeeply(params.projectPath);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2),
+              },
+            ],
+          };
+        }
+
+        case 'create_project_template': {
+          const params = z.object({
+            projectPath: z.string(),
+            analysisId: z.string().optional(),
+            projectName: z.string().optional(),
+            description: z.string().optional(),
+          }).parse(args);
+          
+          const result = await createProjectTemplate(params);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2),
+              },
+            ],
+          };
+        }
+
+        case 'create_codebase_context': {
+          const params = z.object({
+            projectPath: z.string(),
+            analysisId: z.string().optional(),
+            includeExamples: z.boolean().optional(),
+            tokenOptimized: z.boolean().optional(),
+          }).parse(args);
+          
+          const result = await createCodebaseContext(params);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2),
+              },
+            ],
+          };
+        }
+
+        case 'complete_setup_workflow': {
+          const params = z.object({
+            projectPath: z.string(),
+            projectName: z.string().optional(),
+            description: z.string().optional(),
+            tokenOptimized: z.boolean().optional(),
+            createContextBundles: z.boolean().optional(),
+          }).parse(args);
+          
+          const result = await completeSetupWorkflow(params);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2),
+              },
+            ],
+          };
+        }
+
+        case 'get_context_recommendation': {
+          const params = z.object({
+            task: z.string(),
+            tokenBudget: z.number().optional(),
+          }).parse(args);
+          
+          const result = await routeContext(params.task);
           return {
             content: [
               {

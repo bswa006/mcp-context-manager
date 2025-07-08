@@ -1,6 +1,122 @@
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 
 export const toolDefinitions: Tool[] = [
+  // Core Setup Tools
+  {
+    name: 'analyze_codebase_deeply',
+    description: '🔍 MANDATORY FIRST STEP: Deep analysis of every file in the codebase',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        projectPath: {
+          type: 'string',
+          description: 'Path to the project directory to analyze',
+        },
+      },
+      required: ['projectPath'],
+    },
+  },
+  {
+    name: 'create_project_template',
+    description: 'Create PROJECT-TEMPLATE.md with architecture overview (requires analysis)',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        projectPath: {
+          type: 'string',
+          description: 'Path to the project directory',
+        },
+        analysisId: {
+          type: 'string',
+          description: 'Analysis ID from analyze_codebase_deeply',
+        },
+        projectName: {
+          type: 'string',
+          description: 'Name of the project',
+        },
+        description: {
+          type: 'string',
+          description: 'Project description',
+        },
+      },
+      required: ['projectPath'],
+    },
+  },
+  {
+    name: 'create_codebase_context',
+    description: 'Create CODEBASE-CONTEXT.md with evidence-based patterns',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        projectPath: {
+          type: 'string',
+          description: 'Path to the project directory',
+        },
+        analysisId: {
+          type: 'string',
+          description: 'Analysis ID from analyze_codebase_deeply',
+        },
+        includeExamples: {
+          type: 'boolean',
+          description: 'Include code examples from analysis',
+        },
+        tokenOptimized: {
+          type: 'boolean',
+          description: 'Create token-optimized version',
+        },
+      },
+      required: ['projectPath'],
+    },
+  },
+  {
+    name: 'complete_setup_workflow',
+    description: '🚀 One command to do everything! Analyzes codebase and creates all context files',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        projectPath: {
+          type: 'string',
+          description: 'Path to the project directory',
+        },
+        projectName: {
+          type: 'string',
+          description: 'Name of the project',
+        },
+        description: {
+          type: 'string',
+          description: 'Project description',
+        },
+        tokenOptimized: {
+          type: 'boolean',
+          description: 'Create token-optimized contexts',
+        },
+        createContextBundles: {
+          type: 'boolean',
+          description: 'Create task-specific context bundles',
+        },
+      },
+      required: ['projectPath'],
+    },
+  },
+  // Token Optimization Tools
+  {
+    name: 'get_context_recommendation',
+    description: 'Get recommended context files based on task type for token optimization',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        task: {
+          type: 'string',
+          description: 'Description of the task to perform',
+        },
+        tokenBudget: {
+          type: 'number',
+          description: 'Maximum tokens to use (optional)',
+        },
+      },
+      required: ['task'],
+    },
+  },
   {
     name: 'check_before_suggesting',
     description: 'CRITICAL: AI must use this before suggesting any code to prevent hallucinations',
@@ -236,3 +352,16 @@ export const toolDefinitions: Tool[] = [
     },
   },
 ];
+
+// Re-export for backward compatibility
+export const setupWorkflowTools = toolDefinitions.filter(t => 
+  ['analyze_codebase_deeply', 'create_project_template', 'create_codebase_context', 'complete_setup_workflow'].includes(t.name)
+);
+
+export const validationTools = toolDefinitions.filter(t => 
+  ['check_before_suggesting', 'validate_generated_code', 'check_security_compliance'].includes(t.name)
+);
+
+export const analysisTools = toolDefinitions.filter(t => 
+  ['detect_existing_patterns', 'get_pattern_for_task', 'track_agent_performance'].includes(t.name)
+);

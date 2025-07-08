@@ -354,3 +354,28 @@ export function getTokenTracker(workspacePath: string): TokenTracker {
   }
   return tracker;
 }
+
+// Wrapper function for easy usage
+export async function trackTokenUsage(options: {
+  task: string;
+  tokensUsed: number;
+  context?: string;
+  result?: string;
+  tier?: 'minimal' | 'standard' | 'comprehensive';
+  model?: string;
+}): Promise<void> {
+  const tracker = getTokenTracker(process.cwd());
+  await tracker.initialize();
+  await tracker.trackUsage(
+    options.task,
+    options.context ? [options.context] : [],
+    options.tokensUsed,
+    options.model || 'claude-3-sonnet',
+    options.tier || 'standard',
+    options.result === 'success',
+    {
+      timeSaved: 5,
+      errorsPrevented: 0,
+    }
+  );
+}

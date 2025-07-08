@@ -238,3 +238,15 @@ export async function suggestContext(
   
   return result;
 }
+
+// Wrapper function for MCP tool
+export async function routeContext(task: string): Promise<{
+  recommendations: ContextRecommendation[];
+  totalTokens: number;
+  confidence: number;
+  matchedTask: string;
+}> {
+  const router = new ContextRouter(process.cwd());
+  await router.initialize();
+  return router.recommendContext(task);
+}
