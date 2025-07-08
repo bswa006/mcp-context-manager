@@ -2,6 +2,9 @@
 
 The definitive MCP (Model Context Protocol) server for perfect AI-assisted development. This server transforms AI agents into expert developers that write flawless, secure, and well-tested code with zero hallucinations.
 
+**npm**: https://www.npmjs.com/package/ai-agent-template-mcp  
+**GitHub**: https://github.com/bswa006/mcp-context-manager
+
 ## 🚀 Overview
 
 This MCP server is the missing piece for AI-assisted development, providing:
@@ -45,11 +48,33 @@ This MCP server is the missing piece for AI-assisted development, providing:
 - **Proactive Prompts**: AI guides itself through best practices
 - **Performance Tracking**: Metrics for continuous improvement
 
-## Installation
+## 🚀 Quick Start
 
+### Option 1: Use the Published npm Package (Recommended)
+```bash
+# Install globally
+npm install -g ai-agent-template-mcp
+
+# Or use directly with npx
+npx ai-agent-template-mcp
+```
+
+Then add to your Claude Desktop config:
+```json
+{
+  "mcpServers": {
+    "ai-agent-template": {
+      "command": "npx",
+      "args": ["ai-agent-template-mcp"]
+    }
+  }
+}
+```
+
+### Option 2: Clone and Build Locally
 ```bash
 # Clone the repository
-git clone [repository-url]
+git clone https://github.com/bswa006/mcp-context-manager
 cd ai-agent-template-mcp
 
 # Install dependencies
@@ -108,6 +133,45 @@ Add to your Cursor settings:
 - `template://pattern-library` - Comprehensive code patterns for all scenarios
 - `template://workflow-templates` - Step-by-step guides for common tasks
 - `template://test-patterns` - Testing strategies for 80%+ coverage
+
+## 📚 Complete Tool Reference
+
+Here's a comprehensive list of all 15 tools available in the MCP server:
+
+### Core Validation Tools
+
+| Tool | Purpose | Key Features |
+|------|---------|--------------|
+| **check_before_suggesting** | Prevent hallucinations | Verifies imports, methods, and patterns exist before AI suggests code |
+| **validate_generated_code** | Validate AI output | Checks generated code against project patterns and conventions |
+| **get_pattern_for_task** | Pattern guidance | Provides exact patterns to follow for components, hooks, services, etc. |
+| **check_security_compliance** | Security validation | Scans code for vulnerabilities and security issues |
+| **detect_existing_patterns** | Pattern detection | Analyzes existing codebase to match coding style |
+
+### Workspace & Project Tools
+
+| Tool | Purpose | Key Features |
+|------|---------|--------------|
+| **initialize_agent_workspace** | Project setup | Creates PROJECT-TEMPLATE.md, CODEBASE-CONTEXT.md, and context files |
+| **analyze_codebase_deeply** | Deep analysis | Comprehensive pattern detection, architecture understanding |
+| **complete_setup_workflow** | One-command setup | Runs all setup tools in sequence for complete configuration |
+
+### Testing & Performance Tools
+
+| Tool | Purpose | Key Features |
+|------|---------|--------------|
+| **generate_tests_for_coverage** | Test generation | Creates tests to achieve 80%+ coverage with edge cases |
+| **track_agent_performance** | Metrics tracking | Monitors token usage, validation scores, and improvements |
+
+### UX Enhancement Tools (v2.0.0)
+
+| Tool | Purpose | Key Features |
+|------|---------|--------------|
+| **create_conversation_starters** | AI context helper | Quick tasks, recent work, project overview for faster AI understanding |
+| **create_token_optimizer** | Token savings | 3-tier context system (minimal/standard/comprehensive) with ROI tracking |
+| **create_ide_configs** | IDE integration | Auto-loading configs for Cursor, VS Code, IntelliJ |
+| **setup_persistence_automation** | Auto-updates | Git hooks, cron jobs, monitoring, validation scripts |
+| **create_maintenance_workflows** | Team collaboration | Onboarding guides, checklists, metrics dashboards, training materials |
 
 ## Available Tools (AI Self-Validation)
 
@@ -334,10 +398,35 @@ Track agent performance after completing features.
 ## 🔄 Workflows
 
 ### Quick Start with Complete Setup
-1. Run `complete_setup_workflow` with your project path
-2. Review generated files in `agent-context/` directory
-3. Commit all files to version control
-4. Open in your IDE - context auto-loads!
+
+The fastest way to get started is using the `complete_setup_workflow` tool:
+
+```typescript
+// In your AI chat:
+Use the complete_setup_workflow tool with these parameters:
+{
+  "projectPath": "/path/to/your/project",
+  "projectName": "My Awesome Project",
+  "teamSize": 5,
+  "updateSchedule": "weekly",
+  "ide": "all"
+}
+```
+
+This will:
+1. 📊 Analyze your entire codebase deeply
+2. 📝 Create all context files (PROJECT-TEMPLATE.md, CODEBASE-CONTEXT.md)
+3. 💬 Generate conversation starters for quick AI onboarding
+4. 💎 Create token-optimized context tiers (saving 70-95% tokens)
+5. 🛠️ Generate IDE configs for Cursor, VS Code, and IntelliJ
+6. 🔄 Set up automated updates with git hooks and cron jobs
+7. 📋 Create team workflows and documentation
+
+After completion:
+- Review generated files in `agent-context/` directory
+- Commit all files to version control
+- Open in your IDE - context auto-loads!
+- Your AI will now understand your project perfectly
 
 ### New Feature Development
 1. Initialize workspace with `initialize_agent_workspace`
