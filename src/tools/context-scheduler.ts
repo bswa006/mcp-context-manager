@@ -1,6 +1,7 @@
 import { ContextValidator } from './context-validator.js';
 import { promises as fs } from 'fs';
 import { join } from 'path';
+import * as cron from 'node-cron';
 
 interface ScheduleConfig {
   enabled: boolean;
@@ -26,7 +27,7 @@ export class ContextScheduler {
   private configPath: string;
   private statusPath: string;
   private config: ScheduleConfig | null = null;
-  private task: any = null; // cron.ScheduledTask when cron is available
+  private task: cron.ScheduledTask | null = null;
   private status: ScheduleStatus = { isRunning: false };
 
   constructor(workspacePath: string) {
@@ -70,16 +71,18 @@ export class ContextScheduler {
   start(): void {
     if (!this.config || this.task) return;
 
-    // Note: cron scheduling disabled - install node-cron to enable
-    console.log('Scheduled validation requires node-cron package');
-    
-    this.status.isRunning = false;
+    this.task = cron.schedule(this.config.cronExpression, async () => {
+      await this.runValidation();
+    });
+
+    this.status.isRunning = true;
     this.updateNextRunTime();
+    console.log(`Context validation scheduled with expression: ${this.config.cronExpression}`);
   }
 
   stop(): void {
     if (this.task) {
-      // Note: cron scheduling disabled
+      this.task.stop();
       this.task = null;
       this.status.isRunning = false;
       console.log('Context validation scheduler stopped');
