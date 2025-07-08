@@ -46,6 +46,21 @@ Manual: "create files" → AI creates generic files → No analysis!
 | **Tool Limit** | No limit | 40 max |
 | **OAuth Support** | Varies | ✅ Built-in |
 
+## 📦 Version Requirements
+
+**IMPORTANT**: You need version 1.4.0 or later for the `complete_setup_workflow` tool.
+
+Check your version:
+```bash
+npm list mcp-context-manager
+```
+
+Update if needed:
+```bash
+npm install -g mcp-context-manager@latest
+# or for npx users, it auto-updates
+```
+
 ## 🚀 The ONLY Correct Way to Use This
 
 ### For Both Claude Desktop and Cursor
@@ -81,9 +96,22 @@ Manual: "create files" → AI creates generic files → No analysis!
 Please use MCP Context Manager's complete_setup_workflow tool to analyze, document, and setup automatic context loading for this project.
 ```
 
+**✅ ALTERNATIVE - If `complete_setup_workflow` tool not found:**
+```
+I see the MCP Context Manager tools. Please run them in this sequence:
+1. First use the analyze_codebase_deeply tool
+2. Then create_shared_tech_stack
+3. Then create_project_template with analysis_complete: true
+4. Then create_codebase_context
+5. Then create_initial_adrs
+6. Then create_directory_readme for main directories
+7. Finally setup_auto_context_loading
+```
+
 **❌ WRONG - Manual instructions bypass quality checks:**
 ```
 Please analyze this codebase and create context files...
+Create agent-context/PROJECT-TEMPLATE.md with...
 ```
 
 #### Step 3: What Actually Happens
@@ -222,6 +250,26 @@ mcp-context check
 
 ## 🛠️ Troubleshooting
 
+### "Tool not found" errors
+**Problem**: Getting "I don't see a complete_setup_workflow tool" or similar
+**Causes & Solutions**:
+1. **Old version**: Update to v1.4.0+ with `npm install -g mcp-context-manager@latest`
+2. **Cache issue**: Restart Claude/Cursor after updating
+3. **Connection issue**: Check MCP server is running (green indicator)
+4. **Alternative**: Use the manual sequence of tools shown in Step 2
+
+### Version checking
+```bash
+# Check installed version
+npm list -g mcp-context-manager
+
+# Update to latest
+npm install -g mcp-context-manager@latest
+
+# For npx users (auto-updates)
+npx mcp-context-manager@latest serve
+```
+
 ### "AI created files without analyzing code"
 **Problem**: You used manual instructions instead of MCP tools
 **Solution**: Use the exact command:
@@ -244,6 +292,14 @@ The AI didn't actually analyze. Check if:
 - Files contain specific file references (Button.tsx, userService.ts)
 - Patterns show counts (found in 23 files)
 - Examples include line numbers (pattern at line 45)
+
+### MCP server connection issues
+**Symptoms**: Red indicator in Cursor, tools not loading
+**Solutions**:
+1. Check MCP server is running: `ps aux | grep mcp-context`
+2. Verify config path: `.cursor/mcp.json` exists
+3. Try manual start: `npx mcp-context-manager serve`
+4. Check logs: Cursor → Developer → Toggle Developer Tools
 
 ## 📊 What You'll Get
 

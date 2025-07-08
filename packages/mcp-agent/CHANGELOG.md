@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.5.1] - 2025-01-08
+
+### Fixed
+- Added comprehensive troubleshooting for "Tool not found" errors
+- Added version checking instructions to README
+- Clarified that v1.4.0+ is required for `complete_setup_workflow` tool
+- Added alternative instructions when tool is not available
+
+### Added
+- Version requirements section (v1.4.0+ for complete_setup_workflow)
+- Manual tool sequence as fallback option
+- Version checking commands in troubleshooting
+- MCP server connection troubleshooting
+
+### Documentation
+- Expanded troubleshooting section with common issues
+- Clear guidance for version-related problems
+- Step-by-step alternatives when tools are missing
+
 ## [1.5.0] - 2025-01-08
 
 ### Major Documentation Overhaul
