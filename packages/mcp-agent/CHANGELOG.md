@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.1] - 2025-01-08
+
+### Documentation
+- Added separate Quick Start sections for Claude Desktop and Cursor users
+- Added comparison table between Claude Desktop and Cursor
+- Added prerequisites section
+- Clarified MCP server usage for Cursor
+- Improved step-by-step instructions for both platforms
+
+### Fixed
+- Clear distinction between Claude Desktop (native MCP) and Cursor (server-based)
+- Better explanation of auto-loading verification
+
 ## [1.4.0] - 2025-01-08
 
 ### Added

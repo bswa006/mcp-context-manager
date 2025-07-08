@@ -10,21 +10,26 @@ MCP Context Manager is a Model Context Protocol (MCP) server that:
 2. **Guides Analysis** - Tells AI to analyze your codebase and fill the template
 3. **Ensures Usage** - Monitors that AI uses the context when generating code
 
+## 🤔 Claude Desktop vs Cursor
+
+| Feature | Claude Desktop | Cursor |
+|---------|---------------|---------|
+| **MCP Support** | ✅ Native | ✅ Via server |
+| **Setup** | Add to config & restart | Run server command |
+| **Auto-loading** | @ mentions | Project rules |
+| **Context Access** | `@context` | Auto-attached |
+| **Best For** | General coding | IDE integration |
+
 ## 🚀 Quick Start Guide
 
-### Step 1: Install MCP Context Manager
+### Prerequisites
+- Node.js 18+ installed (`node --version` to check)
+- Your project in a git repository (recommended)
+- Claude Desktop or Cursor IDE
 
-No installation needed! Just use npx:
-```bash
-npx mcp-context-manager
-```
+### For Claude Desktop Users
 
-Or install globally:
-```bash
-npm install -g mcp-context-manager
-```
-
-### Step 2: Configure Claude Desktop
+#### Step 1: Configure Claude Desktop
 
 1. Open Claude Desktop settings
 2. Go to the MCP section
@@ -42,31 +47,53 @@ npm install -g mcp-context-manager
 
 4. Restart Claude Desktop to load the MCP server
 
-### Step 3: Use This Magic Prompt
+#### Step 2: Run the Magic Command
 
 In Claude Desktop, simply say:
-
-```
-Please use the MCP Context Manager to analyze this codebase and create all context files.
-```
-
-Or for the complete workflow with auto-loading:
 
 ```
 Please use MCP Context Manager's complete_setup_workflow tool to analyze, document, and setup automatic context loading for this project.
 ```
 
-The AI will:
-- 🔍 Analyze every source file in your project
-- 📝 Create comprehensive documentation
-- 🏗️ Generate Architecture Decision Records
-- 📁 Document each directory's purpose
-- ⚙️ Set up automation scripts
-- 🤖 Enable automatic context loading (no more manual reminders!)
+#### Step 3: Done! 
+- Context files are created in `agent-context/`
+- Auto-loading is enabled - use `@context` to access files
+- No need to remind Claude to read context anymore!
 
-### Step 4: Verify Files Were Created
+---
 
-Check that these files now exist:
+### For Cursor Users
+
+#### Step 1: Start MCP Server
+
+In your project directory, run:
+```bash
+npx mcp-context-manager serve
+```
+
+Keep this terminal open while using Cursor.
+
+#### Step 2: Run Analysis in Cursor
+
+In Cursor chat, say:
+
+```
+Please analyze this codebase and create all context files:
+1. Read every source file thoroughly
+2. Create agent-context/PROJECT-TEMPLATE.md with project overview
+3. Create agent-context/CODEBASE-CONTEXT.md with code patterns
+4. Create agent-context/adr/ folder with 6 architecture decision files
+5. Create .cursor/rules/ folder with auto-loading rules
+```
+
+#### Step 3: Restart Cursor
+After files are created, restart Cursor to activate the auto-loading rules.
+
+---
+
+### What Gets Created
+
+Both approaches create these files:
 ```
 agent-context/
 ├── PROJECT-TEMPLATE.md      ✓ Complete project overview
@@ -74,31 +101,20 @@ agent-context/
 ├── .context7.yaml           ✓ Hallucination prevention
 ├── shared/
 │   └── tech-stack.yaml      ✓ Version management
-├── adr/                     ✓ Architecture decisions
-│   ├── 001-frontend-framework.md
-│   ├── 002-state-management.md
-│   ├── 003-api-patterns.md
-│   ├── 004-testing-strategy.md
-│   ├── 005-code-style.md
-│   └── 006-security-patterns.md
+├── adr/                     ✓ Architecture decisions (6 files)
 └── directories/             ✓ Directory-specific docs
+
+.cursor/rules/               ✓ Auto-loading rules (Cursor)
+.mcp.json                    ✓ Project config (Claude)
 ```
 
-### Step 5: Context is Now Auto-Loaded! 🎉
+### Verify Auto-Loading Works
 
-If you used the basic prompt, the AI will remind you to run:
-```
-Please use MCP Context Manager's setup_auto_context_loading tool to enable automatic context loading.
-```
+**Claude Desktop**: Type `@context` to see available context files
 
-If you used `complete_setup_workflow`, this is already done!
+**Cursor**: Open any code file - context rules auto-attach
 
-What's enabled:
-- **Cursor**: Auto-attach rules that load context for every file
-- **Claude**: @ mentions for easy context access (@context)
-- **Both**: Automatic reminders to read context before coding
-
-After setup, you won't need to remind the AI to read context - it happens automatically!
+No more "Please read agent-context files" - it's automatic! 🎉
 
 ## 📁 What Gets Created
 
