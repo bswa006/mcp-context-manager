@@ -1,8 +1,8 @@
-# AI Agent Template MCP Server
+# MCP Context Manager
 
 The definitive MCP (Model Context Protocol) server for perfect AI-assisted development. This server transforms AI agents into expert developers that write flawless, secure, and well-tested code with zero hallucinations.
 
-**npm**: https://www.npmjs.com/package/ai-agent-template-mcp  
+**npm**: https://www.npmjs.com/package/mcp-context-manager  
 **GitHub**: https://github.com/bswa006/mcp-context-manager
 
 ## 🚀 Overview
@@ -53,19 +53,19 @@ This MCP server is the missing piece for AI-assisted development, providing:
 ### Option 1: Use the Published npm Package (Recommended)
 ```bash
 # Install globally
-npm install -g ai-agent-template-mcp
+npm install -g mcp-context-manager
 
 # Or use directly with npx
-npx ai-agent-template-mcp
+npx mcp-context-manager
 ```
 
 Then add to your Claude Desktop config:
 ```json
 {
   "mcpServers": {
-    "ai-agent-template": {
+    "context-manager": {
       "command": "npx",
-      "args": ["ai-agent-template-mcp"]
+      "args": ["mcp-context-manager"]
     }
   }
 }
@@ -75,7 +75,7 @@ Then add to your Claude Desktop config:
 ```bash
 # Clone the repository
 git clone https://github.com/bswa006/mcp-context-manager
-cd ai-agent-template-mcp
+cd mcp-context-manager
 
 # Install dependencies
 npm install
@@ -93,7 +93,7 @@ Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/
 ```json
 {
   "mcpServers": {
-    "ai-agent-template": {
+    "context-manager": {
       "command": "node",
       "args": ["/path/to/ai-agent-template-mcp/dist/server.js"]
     }
@@ -108,7 +108,7 @@ Add to your Cursor settings:
 ```json
 {
   "mcp.servers": {
-    "ai-agent-template": {
+    "context-manager": {
       "command": "node",
       "args": ["/path/to/ai-agent-template-mcp/dist/server.js"]
     }
