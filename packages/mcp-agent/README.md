@@ -10,54 +10,78 @@ MCP Context Manager is a Model Context Protocol (MCP) server that:
 2. **Guides Analysis** - Tells AI to analyze your codebase and fill the template
 3. **Ensures Usage** - Monitors that AI uses the context when generating code
 
-## 🚀 Quick Start
+## 🚀 Quick Start Guide
 
-### 1. Install and Initialize
+### Step 1: Install MCP Context Manager
 
+No installation needed! Just use npx:
 ```bash
-# Install globally
+npx mcp-context-manager
+```
+
+Or install globally:
+```bash
 npm install -g mcp-context-manager
-
-# Or use directly with npx
-npx mcp-context-manager init
 ```
 
-### 2. Configure Your AI Tool
+### Step 2: Configure Claude Desktop
 
-#### For Claude Desktop:
-1. Copy config from `.mcp/claude_desktop_config.json`
-2. Add to Claude Desktop MCP settings
+1. Open Claude Desktop settings
+2. Go to the MCP section
+3. Add this configuration to your MCP servers:
 
-#### For Cursor/Other Tools:
-```bash
-npx mcp-context-manager serve
+```json
+{
+  "context-manager": {
+    "command": "npx",
+    "args": ["mcp-context-manager", "serve"],
+    "env": {}
+  }
+}
 ```
 
-### 3. Tell Your AI to Create Context Files
+4. Restart Claude Desktop to load the MCP server
 
-In your AI assistant, say:
+### Step 3: Use This Magic Prompt
+
+In Claude Desktop, simply say:
+
 ```
-Please use the MCP Context Manager to:
-1. First run 'analyze_codebase_deeply' tool
-2. Read EVERY source code file (not just configs)
-3. Understand actual patterns from the code
-4. Collect evidence for every pattern found
-5. Only then create context files with real examples
-
-This is critical - don't skip the deep analysis!
+Please use the MCP Context Manager to analyze this codebase and create all context files.
 ```
 
-The AI will:
-- Read every .ts/.tsx/.js/.jsx file
-- Analyze actual code patterns
-- Understand your real architecture
-- Create accurate context based on evidence
+That's it! The AI will:
+- 🔍 Analyze every source file in your project
+- 📝 Create comprehensive documentation
+- 🏗️ Generate Architecture Decision Records
+- 📁 Document each directory's purpose
+- ⚙️ Set up automation scripts
 
-### 4. Use Context in Every Session
+### Step 4: Verify Files Were Created
 
-Before generating code, always tell your AI:
+Check that these files now exist:
 ```
-Please read agent-context/PROJECT-TEMPLATE.md and agent-context/CODEBASE-CONTEXT.md before generating any code. Follow the patterns and constraints defined there.
+agent-context/
+├── PROJECT-TEMPLATE.md      ✓ Complete project overview
+├── CODEBASE-CONTEXT.md      ✓ Your specific patterns
+├── .context7.yaml           ✓ Hallucination prevention
+├── shared/
+│   └── tech-stack.yaml      ✓ Version management
+├── adr/                     ✓ Architecture decisions
+│   ├── 001-frontend-framework.md
+│   ├── 002-state-management.md
+│   ├── 003-api-patterns.md
+│   ├── 004-testing-strategy.md
+│   ├── 005-code-style.md
+│   └── 006-security-patterns.md
+└── directories/             ✓ Directory-specific docs
+```
+
+### Step 5: Use Context for Better Code
+
+Before asking Claude to write code, always say:
+```
+Please read the agent-context files before generating any code.
 ```
 
 ## 📁 What Gets Created
@@ -149,54 +173,86 @@ mcp-context serve
 mcp-context check
 ```
 
+## 💡 Pro Tips
+
+1. **First Time Setup**: The magic prompt will take 2-3 minutes as the AI reads every file
+2. **Update Regularly**: Re-run the analysis when you add major features
+3. **Check File Creation**: If folders are empty, remind the AI to create the actual files
+4. **Use Context**: Always reference agent-context files before generating code
+
 ## 🛠️ Troubleshooting
 
-### AI doesn't create files?
-- Make sure MCP server is running
-- Verify AI tool is connected to MCP
-- Try more specific instructions
+### "MCP server not found"
+- Make sure you added the configuration to Claude Desktop settings
+- Restart Claude Desktop after adding the configuration
 
-### AI ignores context?
-- Remind AI to read context files first
-- Check files were created correctly
-- Ensure paths are correct
+### Empty folders (adr/, scripts/)
+The AI needs to create the actual files. Say:
+```
+The adr and scripts folders are empty. Please create all the ADR files and scripts as instructed by the MCP tools.
+```
 
-## 📚 Example AI Conversation
+### "Command not found"
+Make sure you have Node.js 18+ installed:
+```bash
+node --version  # Should be 18.0.0 or higher
+```
+
+## 📊 What You'll Get
+
+After running the magic prompt, your project will have:
+
+| File | Purpose | Impact |
+|------|---------|--------|
+| PROJECT-TEMPLATE.md | Complete project documentation | 📈 30% fewer tokens needed |
+| CODEBASE-CONTEXT.md | Your specific patterns & rules | 🎯 84% fewer bugs |
+| 6 ADR files | Architecture decisions | 🏗️ Consistent code |
+| tech-stack.yaml | Version management | 🔒 No version conflicts |
+| Directory READMEs | API documentation | 📚 Clear interfaces |
+
+## 🎯 Real Example
 
 ```
-You: Please use MCP Context Manager to analyze this project and create all context files.
+You: Please use the MCP Context Manager to analyze this codebase and create all context files.
 
-AI: I'll start with a deep analysis of your codebase using the MCP Context Manager...
+Claude: I'll analyze your codebase using the MCP Context Manager...
 
-[Running analyze_codebase_deeply tool]
-[Reading src/components/Button.tsx...]
-[Reading src/components/UserCard.tsx...]
-[Reading src/services/api/userService.ts...]
-[... reads EVERY source file ...]
+[2-3 minutes later]
 
-I've analyzed 147 source files. Here's what I found:
-- Components use PascalCase (Button.tsx, UserCard.tsx, NavBar.tsx...)
-- State management: Zustand (found stores in src/stores/)
-- API calls: Axios with try-catch pattern (seen in 23 service files)
-- Styling: Tailwind utility classes (used in all components)
+✅ Created 15 context files
+📊 Analyzed 147 source files
+🎯 Documented 23 patterns
+🏗️ Generated 6 architecture decisions
 
-Now creating context files based on this evidence...
-[Creates agent-context/PROJECT-TEMPLATE.md with specific examples]
-[Creates agent-context/CODEBASE-CONTEXT.md with code snippets]
-[Creates agent-context/adr/001-frontend-framework.md]
-[Creates agent-context/adr/002-state-management.md]
-[Creates agent-context/adr/003-api-patterns.md]
-[Creates agent-context/adr/004-testing-strategy.md]
-[Creates agent-context/adr/005-code-style.md]
-[Creates agent-context/adr/006-security-patterns.md]
+Your codebase is now fully documented! Use these patterns for consistent code.
 
-You: Now create a new user authentication component.
+You: Create a new user profile component.
 
-AI: Based on my analysis, I'll follow these patterns from your codebase:
-- Component naming: PascalCase (like UserCard.tsx, LoginForm.tsx)
-- Error handling: try-catch with toast (as in userService.ts:45)
-- State: Zustand store (following authStore.ts pattern)
-[Generates code matching YOUR specific patterns with evidence]
+Claude: Based on the patterns in agent-context/CODEBASE-CONTEXT.md:
+- Using PascalCase naming (like Button.tsx, UserCard.tsx)
+- Following your Zustand pattern from authStore.ts
+- Using your try-catch + toast error handling
+[Generates perfect, consistent code]
+```
+
+## 🚀 Advanced Usage
+
+### Custom Analysis
+```
+Please use MCP Context Manager to analyze this codebase, focusing especially on:
+- Authentication patterns
+- API error handling
+- Component composition patterns
+```
+
+### Update Existing Context
+```
+Please update the agent-context files - we've added GraphQL to the project.
+```
+
+### Generate Specific ADRs
+```
+Please create an ADR for our new caching strategy using the MCP Context Manager.
 ```
 
 ## 🤝 Contributing

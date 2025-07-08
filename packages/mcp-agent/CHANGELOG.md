@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.2.0] - 2025-01-08
+
+### Added
+- Comprehensive "How to Use" guide in README
+- Clear step-by-step setup instructions
+- Magic prompt: "Please use the MCP Context Manager to analyze this codebase and create all context files."
+- Troubleshooting section for common issues
+- Visual table showing what files get created
+- Pro tips for effective usage
+
+### Improved
+- User-friendly README with emojis and clear sections
+- Better explanation of Claude Desktop configuration
+- Added specific MCP server configuration JSON
+- Clear examples of expected outcomes
+
+### Documentation
+- Step-by-step guide for Claude Desktop setup
+- Explanation of empty folders issue
+- Advanced usage examples
+
 ## [1.1.0] - 2025-01-08
 
 ### Added
