@@ -50,12 +50,19 @@ In Claude Desktop, simply say:
 Please use the MCP Context Manager to analyze this codebase and create all context files.
 ```
 
-That's it! The AI will:
+Or for the complete workflow with auto-loading:
+
+```
+Please use MCP Context Manager's complete_setup_workflow tool to analyze, document, and setup automatic context loading for this project.
+```
+
+The AI will:
 - 🔍 Analyze every source file in your project
 - 📝 Create comprehensive documentation
 - 🏗️ Generate Architecture Decision Records
 - 📁 Document each directory's purpose
 - ⚙️ Set up automation scripts
+- 🤖 Enable automatic context loading (no more manual reminders!)
 
 ### Step 4: Verify Files Were Created
 
@@ -77,14 +84,16 @@ agent-context/
 └── directories/             ✓ Directory-specific docs
 ```
 
-### Step 5: Enable Automatic Context Loading (NEW! 🎉)
+### Step 5: Context is Now Auto-Loaded! 🎉
 
-Run this command to setup auto-loading:
+If you used the basic prompt, the AI will remind you to run:
 ```
 Please use MCP Context Manager's setup_auto_context_loading tool to enable automatic context loading.
 ```
 
-This creates:
+If you used `complete_setup_workflow`, this is already done!
+
+What's enabled:
 - **Cursor**: Auto-attach rules that load context for every file
 - **Claude**: @ mentions for easy context access (@context)
 - **Both**: Automatic reminders to read context before coding
@@ -120,17 +129,23 @@ your-project/
 
 The server provides these tools to AI agents:
 
+**Core Tools:**
 - **`analyze_codebase_deeply`** 🔍 - MANDATORY FIRST STEP: Deep analysis of every file
 - **`create_project_template`** - Create PROJECT-TEMPLATE.md (requires analysis_complete: true)
 - **`create_codebase_context`** - Create CODEBASE-CONTEXT.md with evidence-based patterns
 - **`create_initial_adrs`** - Create initial Architecture Decision Records
+
+**Additional Tools:**
 - **`create_adr`** - Create a specific Architecture Decision Record
 - **`create_directory_readme`** - Create README for a specific directory
 - **`check_context_usage`** - Verify AI is using context files
 - **`create_cursor_config`** - Create Cursor auto-loading configuration
 - **`create_shared_tech_stack`** - Create deduplicated version config
 - **`create_maintenance_scripts`** - Create automation scripts
-- **`setup_auto_context_loading`** 🆕 - Enable automatic context loading (2025)
+
+**Automation Tools (NEW!):**
+- **`setup_auto_context_loading`** 🆕 - Enable automatic context loading
+- **`complete_setup_workflow`** 🚀 - One command to do everything!
 
 ## 📋 PROJECT-TEMPLATE.md Contents
 
@@ -220,23 +235,27 @@ After running the magic prompt, your project will have:
 
 ## 🎯 Real Example
 
+### Quick Setup (One Command)
 ```
-You: Please use the MCP Context Manager to analyze this codebase and create all context files.
+You: Please use MCP Context Manager's complete_setup_workflow tool to analyze, document, and setup automatic context loading for this project.
 
-Claude: I'll analyze your codebase using the MCP Context Manager...
+Claude: I'll run the complete MCP Context Manager workflow...
 
-[2-3 minutes later]
+[Following the 7-step process]
+[2-3 minutes of analysis and file creation]
 
 ✅ Created 15 context files
-📊 Analyzed 147 source files
+📊 Analyzed 147 source files  
 🎯 Documented 23 patterns
 🏗️ Generated 6 architecture decisions
+🤖 Enabled automatic context loading
 
-Your codebase is now fully documented! Use these patterns for consistent code.
+Your project is fully documented with auto-loading enabled!
 
 You: Create a new user profile component.
 
-Claude: Based on the patterns in agent-context/CODEBASE-CONTEXT.md:
+Claude: [Automatically reads context without being asked]
+Based on your established patterns:
 - Using PascalCase naming (like Button.tsx, UserCard.tsx)
 - Following your Zustand pattern from authStore.ts
 - Using your try-catch + toast error handling

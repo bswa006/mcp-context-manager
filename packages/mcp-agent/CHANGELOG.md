@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.4.0] - 2025-01-08
+
+### Added
+- New `complete_setup_workflow` tool for one-command full setup
+- Automatic execution of `setup_auto_context_loading` after context creation
+- Simplified magic prompt for complete workflow
+
+### Changed
+- Updated `create_project_template` to include auto-loading setup as final step
+- Reorganized tool list in README into categories
+- Improved examples to show one-command workflow
+
+### Improved
+- Workflow now automatically enables context auto-loading
+- No need to manually run auto-loading setup separately
+- Better user experience with single command setup
+
 ## [1.3.0] - 2025-01-08
 
 ### Added

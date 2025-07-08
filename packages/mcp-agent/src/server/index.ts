@@ -432,6 +432,14 @@ export class MCPContextServer {
               properties: {},
             },
           },
+          {
+            name: 'complete_setup_workflow',
+            description: 'Complete workflow: analyze, create all files, and setup auto-loading',
+            inputSchema: {
+              type: 'object',
+              properties: {},
+            },
+          },
         ],
       };
     });
@@ -485,6 +493,7 @@ export class MCPContextServer {
 5. Reference tech-stack.yaml for versions (don't duplicate)
 6. Create the file at agent-context/PROJECT-TEMPLATE.md
 7. IMPORTANT: After creating PROJECT-TEMPLATE.md, use 'create_initial_adrs' tool to create ADR files
+8. FINAL STEP: After ALL context files are created, use 'setup_auto_context_loading' tool to enable automatic context loading
 
 REMEMBER: Use specific evidence from your code analysis:
 - "Components use PascalCase (found in Button.tsx, UserCard.tsx, etc.)"
@@ -792,6 +801,56 @@ These scripts will:
 - Create PRs for review
 
 This prevents version drift and keeps context current!`,
+              },
+            ],
+          };
+          
+        case 'complete_setup_workflow':
+          return {
+            content: [
+              {
+                type: 'text',
+                text: `🚀 Complete MCP Context Manager Setup Workflow
+
+Please follow these steps IN ORDER to fully setup your project:
+
+1. **First**: Use 'analyze_codebase_deeply' tool
+   - Read EVERY source file
+   - Understand patterns and architecture
+   - Collect evidence for documentation
+
+2. **Second**: Create core context files
+   - Use 'create_shared_tech_stack' tool
+   - Use 'create_project_template' tool
+   - Use 'create_codebase_context' tool
+   - Use 'create_context7_config' tool
+
+3. **Third**: Create architecture records
+   - Use 'create_initial_adrs' tool
+   - This creates 6 essential ADR files
+
+4. **Fourth**: Create directory documentation
+   - Use 'create_directory_readme' for each major directory
+   - Focus on src/components, src/services, src/hooks, etc.
+
+5. **Fifth**: Create maintenance scripts
+   - Use 'create_maintenance_scripts' tool
+   - Sets up version sync and automation
+
+6. **Sixth**: Create Cursor configuration
+   - Use 'create_cursor_config' tool
+   - Enables Cursor-specific optimizations
+
+7. **FINAL**: Setup automatic context loading
+   - Use 'setup_auto_context_loading' tool
+   - This enables automatic context reading!
+
+After completion:
+- Cursor will auto-load context for every file
+- Claude can access context via @context mentions
+- No need to manually remind AI to read context
+
+START NOW with step 1: analyze_codebase_deeply`,
               },
             ],
           };
