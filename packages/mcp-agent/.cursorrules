@@ -1,0 +1,50 @@
+# Cursor Rules for MCP Context Manager
+
+## Before generating any code:
+
+1. **Always check for context files:**
+   - PROJECT-TEMPLATE.md (root directory)
+   - CODEBASE-CONTEXT.md (root directory)
+   - Directory-specific README.md files
+
+2. **If context files exist:**
+   - Read them completely
+   - Follow ALL patterns and conventions specified
+   - Use the exact naming conventions
+   - Respect the constraints and DON'Ts
+
+3. **If context files don't exist:**
+   - First suggest creating them
+   - Analyze the codebase thoroughly
+   - Fill PROJECT-TEMPLATE.md with actual project data
+   - Document patterns in CODEBASE-CONTEXT.md
+
+## Key Rules from MCP Context Manager:
+
+### Always DO:
+- Verify all imports exist in package.json
+- Handle loading, error, and empty states
+- Use proper TypeScript types (never 'any')
+- Use environment variables for sensitive data
+- Add comprehensive error handling
+
+### Never DO:
+- Use localStorage for sensitive data
+- Expose API keys in frontend code
+- Skip error handling
+- Use 'any' TypeScript type
+- Make assumptions about dependencies
+
+## Context File Locations:
+- `/PROJECT-TEMPLATE.md` - Main project documentation
+- `/CODEBASE-CONTEXT.md` - Coding patterns and constraints
+- `/src/components/README.md` - Component patterns
+- `/src/services/README.md` - Service patterns
+- `/src/hooks/README.md` - Hook patterns
+
+## Before every code generation:
+Ask yourself:
+1. Have I read the context files?
+2. Am I following the project's naming conventions?
+3. Am I using the project's established patterns?
+4. Have I checked for the required dependencies?

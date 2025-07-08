@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo "🚀 Publishing MCP Context Manager to NPM"
+echo ""
+echo "Step 1: Please login to NPM first"
+echo "Run: npm login"
+echo ""
+echo "Step 2: After logging in, run:"
+echo "npm publish --access public"
+echo ""
+echo "That's it! Your package will be available at:"
+echo "https://www.npmjs.com/package/mcp-context-manager"
+echo ""
+echo "Users can then use it with:"
+echo "npx mcp-context-manager init"

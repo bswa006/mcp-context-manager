@@ -1,0 +1,35 @@
+# Changelog
+
+## [1.1.0] - 2025-01-08
+
+### Added
+- New `create_initial_adrs` tool that creates 6 essential Architecture Decision Records
+- ADRs now include:
+  - 001-frontend-framework.md
+  - 002-state-management.md
+  - 003-api-patterns.md
+  - 004-testing-strategy.md
+  - 005-code-style.md
+  - 006-security-patterns.md
+- Updated `create_project_template` to automatically trigger ADR creation
+- Added comprehensive workflow documentation
+- Each ADR includes DO/DON'T sections specifically for AI code generation
+
+### Fixed
+- AI agents now create all required context files including ADRs
+- Better evidence-based documentation requirements
+
+### Changed
+- PROJECT-TEMPLATE.md creation now includes step to create ADRs
+- Updated README with new tools and complete example
+
+## [1.0.0] - 2025-01-08
+
+### Initial Release
+- MCP Context Manager server for AI-assisted development
+- Deep codebase analysis tool
+- Template-based context generation
+- Support for Claude Desktop and Cursor
+- Hallucination prevention with Context7
+- Automated maintenance scripts
+- Token optimization features

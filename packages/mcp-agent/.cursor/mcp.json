@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "context-manager": {
+      "command": "node",
+      "args": ["/Users/biswa/Desktop/ai-agent-template/ai-agent-template-mcp/packages/mcp-agent/dist/server/index.js"],
+      "env": {}
+    }
+  }
+}
