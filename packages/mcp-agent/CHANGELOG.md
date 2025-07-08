@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.4.2] - 2025-01-08
+
+### Fixed
+- Cursor now correctly uses native MCP support (v1.0+)
+- Updated Cursor configuration to use `.cursor/mcp.json`
+- Fixed instructions to use Cursor's Settings → MCP Tools
+- Removed incorrect server-based approach for Cursor
+
+### Added
+- `CURSOR_MCP_CONFIG_TEMPLATE` for proper Cursor configuration
+- Updated comparison table with accurate 2025 features
+- Tool limit information (40 max for Cursor)
+
+### Changed
+- Cursor setup now matches native MCP integration
+- Both Claude and Cursor use similar magic command
+- Verification steps updated for both platforms
+
 ## [1.4.1] - 2025-01-08
 
 ### Documentation

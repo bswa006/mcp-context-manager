@@ -246,3 +246,13 @@ export const DESKTOP_EXTENSION_MANIFEST = `{
     ]
   }
 }`;
+
+export const CURSOR_MCP_CONFIG_TEMPLATE = `{
+  "context-manager": {
+    "command": "npx",
+    "args": ["mcp-context-manager", "serve"],
+    "env": {},
+    "autoStart": true,
+    "description": "MCP Context Manager - Automated context loading for better AI code generation"
+  }
+}`;

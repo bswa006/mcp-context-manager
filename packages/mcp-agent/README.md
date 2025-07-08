@@ -14,11 +14,13 @@ MCP Context Manager is a Model Context Protocol (MCP) server that:
 
 | Feature | Claude Desktop | Cursor |
 |---------|---------------|---------|
-| **MCP Support** | ✅ Native | ✅ Via server |
-| **Setup** | Add to config & restart | Run server command |
+| **MCP Support** | ✅ Native | ✅ Native (v1.0+) |
+| **Config Location** | `claude_desktop_config.json` | `.cursor/mcp.json` |
+| **Setup Method** | Edit config & restart | Settings → MCP Tools |
+| **Tool Invocation** | Direct | Via Composer Agent |
 | **Auto-loading** | @ mentions | Project rules |
-| **Context Access** | `@context` | Auto-attached |
-| **Best For** | General coding | IDE integration |
+| **Tool Limit** | No limit | 40 max |
+| **OAuth Support** | Varies | ✅ Built-in |
 
 ## 🚀 Quick Start Guide
 
@@ -64,30 +66,35 @@ Please use MCP Context Manager's complete_setup_workflow tool to analyze, docume
 
 ### For Cursor Users
 
-#### Step 1: Start MCP Server
+#### Step 1: Configure Cursor
 
-In your project directory, run:
-```bash
-npx mcp-context-manager serve
+1. Create `.cursor/mcp.json` in your project root:
+
+```json
+{
+  "context-manager": {
+    "command": "npx",
+    "args": ["mcp-context-manager", "serve"]
+  }
+}
 ```
 
-Keep this terminal open while using Cursor.
+2. Go to Cursor Settings → MCP Tools
+3. Click refresh to load your MCP server
+4. Green indicator = connected!
 
-#### Step 2: Run Analysis in Cursor
+#### Step 2: Run the Magic Command
 
-In Cursor chat, say:
+In Cursor Composer or chat, say:
 
 ```
-Please analyze this codebase and create all context files:
-1. Read every source file thoroughly
-2. Create agent-context/PROJECT-TEMPLATE.md with project overview
-3. Create agent-context/CODEBASE-CONTEXT.md with code patterns
-4. Create agent-context/adr/ folder with 6 architecture decision files
-5. Create .cursor/rules/ folder with auto-loading rules
+Please use MCP Context Manager's complete_setup_workflow tool to analyze, document, and setup automatic context loading for this project.
 ```
 
-#### Step 3: Restart Cursor
-After files are created, restart Cursor to activate the auto-loading rules.
+The Composer Agent will automatically use the MCP tools to create all context files.
+
+#### Step 3: Enable Auto-Run (Optional)
+For faster workflow, enable "Auto-run" in Cursor to let the agent use tools without asking permission each time.
 
 ---
 
@@ -108,11 +115,16 @@ agent-context/
 .mcp.json                    ✓ Project config (Claude)
 ```
 
-### Verify Auto-Loading Works
+### Verify Everything Works
 
-**Claude Desktop**: Type `@context` to see available context files
+**Claude Desktop**: 
+- Type `@context` to see available context files
+- MCP server status in settings shows "Running"
 
-**Cursor**: Open any code file - context rules auto-attach
+**Cursor**: 
+- Green indicator in Settings → MCP Tools
+- "Available Tools" shows MCP Context Manager tools
+- Open any code file - context rules auto-attach
 
 No more "Please read agent-context files" - it's automatic! 🎉
 

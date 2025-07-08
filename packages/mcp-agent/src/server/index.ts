@@ -35,7 +35,8 @@ import {
   MCP_PROJECT_CONFIG_TEMPLATE,
   CLAUDE_GLOBAL_CONTEXT_TEMPLATE,
   AUTOMATED_CONTEXT_LOADER_SCRIPT,
-  DESKTOP_EXTENSION_MANIFEST
+  DESKTOP_EXTENSION_MANIFEST,
+  CURSOR_MCP_CONFIG_TEMPLATE
 } from '../templates/cursor-rules.js';
 import {
   CODEBASE_ANALYSIS_CHECKLIST,
@@ -862,10 +863,12 @@ START NOW with step 1: analyze_codebase_deeply`,
                 type: 'text',
                 text: `Please setup automatic context loading for Claude and Cursor (2025 features):
 
-## For Cursor (Modern Project Rules System)
+## For Cursor (Native MCP Support - 2025)
 
-1. Create .cursor/rules/ directory structure
-2. Create these rule files:
+1. Create .cursor/mcp.json for MCP server configuration:
+${CURSOR_MCP_CONFIG_TEMPLATE}
+
+2. Create .cursor/rules/ directory for auto-loading rules:
 
 ### .cursor/rules/always-read-context.mdc
 ${CURSOR_PROJECT_RULE_TEMPLATE}
@@ -876,8 +879,14 @@ ${CURSOR_AUTO_CONTEXT_RULE}
 ### .cursor/rules/quality-gates.mdc
 ${CURSOR_QUALITY_GATE_RULE}
 
-These rules will:
-- Auto-attach to ALL files in your project
+After creating:
+- Go to Cursor Settings → MCP Tools
+- Click refresh to load the MCP server
+- Green indicator = connected!
+
+These will:
+- Enable MCP Context Manager in Cursor
+- Auto-attach rules to ALL files
 - Automatically remind to read context files
 - Enforce quality standards
 
