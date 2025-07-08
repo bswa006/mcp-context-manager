@@ -29,6 +29,15 @@ import {
   GITHUB_ACTION_SYNC_TEMPLATE
 } from '../templates/project-template.js';
 import {
+  CURSOR_PROJECT_RULE_TEMPLATE,
+  CURSOR_AUTO_CONTEXT_RULE,
+  CURSOR_QUALITY_GATE_RULE,
+  MCP_PROJECT_CONFIG_TEMPLATE,
+  CLAUDE_GLOBAL_CONTEXT_TEMPLATE,
+  AUTOMATED_CONTEXT_LOADER_SCRIPT,
+  DESKTOP_EXTENSION_MANIFEST
+} from '../templates/cursor-rules.js';
+import {
   CODEBASE_ANALYSIS_CHECKLIST,
   DEEP_ANALYSIS_INSTRUCTIONS
 } from '../templates/codebase-analysis.js';
@@ -415,6 +424,14 @@ export class MCPContextServer {
               properties: {},
             },
           },
+          {
+            name: 'setup_auto_context_loading',
+            description: 'Setup automatic context loading for Claude and Cursor',
+            inputSchema: {
+              type: 'object',
+              properties: {},
+            },
+          },
         ],
       };
     });
@@ -775,6 +792,59 @@ These scripts will:
 - Create PRs for review
 
 This prevents version drift and keeps context current!`,
+              },
+            ],
+          };
+          
+        case 'setup_auto_context_loading':
+          return {
+            content: [
+              {
+                type: 'text',
+                text: `Please setup automatic context loading for Claude and Cursor (2025 features):
+
+## For Cursor (Modern Project Rules System)
+
+1. Create .cursor/rules/ directory structure
+2. Create these rule files:
+
+### .cursor/rules/always-read-context.mdc
+${CURSOR_PROJECT_RULE_TEMPLATE}
+
+### .cursor/rules/auto-load-context.mdc
+${CURSOR_AUTO_CONTEXT_RULE}
+
+### .cursor/rules/quality-gates.mdc
+${CURSOR_QUALITY_GATE_RULE}
+
+These rules will:
+- Auto-attach to ALL files in your project
+- Automatically remind to read context files
+- Enforce quality standards
+
+## For Claude Desktop (Project-Scoped MCP)
+
+1. Create .mcp.json in project root:
+${MCP_PROJECT_CONFIG_TEMPLATE}
+
+This enables:
+- @ mentions for context files (@context)
+- Auto-start when project opens
+- Resource exposure for easy access
+
+## For Global Claude Context
+
+1. Create ~/.claude/CLAUDE.md:
+${CLAUDE_GLOBAL_CONTEXT_TEMPLATE}
+
+## Optional: Context Watcher Script
+
+Create agent-context/scripts/context-watcher.js:
+${AUTOMATED_CONTEXT_LOADER_SCRIPT}
+
+Run with: node agent-context/scripts/context-watcher.js
+
+IMPORTANT: After creating these files, restart Claude Desktop and Cursor to activate the auto-loading features!`,
               },
             ],
           };

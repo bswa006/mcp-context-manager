@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.3.0] - 2025-01-08
+
+### Added
+- New `setup_auto_context_loading` tool for automatic context loading
+- Cursor Project Rules templates (`.cursor/rules/*.mdc`)
+- Claude Desktop project-scoped MCP configuration (`.mcp.json`)
+- Global Claude context rules (`~/.claude/CLAUDE.md`)
+- @ mention support for context files in Claude Desktop
+- Context watcher script for real-time updates
+
+### Features
+- Automatic context loading without manual reminders
+- Path-based rule attachment in Cursor
+- Quality gates before code generation
+- Resource exposure via @ mentions in Claude
+- Auto-start MCP server when project opens
+
+### Documentation
+- Added "Automatic Context Loading" section to README
+- Explained 2025 capabilities of Claude and Cursor
+- Updated setup instructions with automation step
+
 ## [1.2.0] - 2025-01-08
 
 ### Added

@@ -77,12 +77,19 @@ agent-context/
 └── directories/             ✓ Directory-specific docs
 ```
 
-### Step 5: Use Context for Better Code
+### Step 5: Enable Automatic Context Loading (NEW! 🎉)
 
-Before asking Claude to write code, always say:
+Run this command to setup auto-loading:
 ```
-Please read the agent-context files before generating any code.
+Please use MCP Context Manager's setup_auto_context_loading tool to enable automatic context loading.
 ```
+
+This creates:
+- **Cursor**: Auto-attach rules that load context for every file
+- **Claude**: @ mentions for easy context access (@context)
+- **Both**: Automatic reminders to read context before coding
+
+After setup, you won't need to remind the AI to read context - it happens automatically!
 
 ## 📁 What Gets Created
 
@@ -123,6 +130,7 @@ The server provides these tools to AI agents:
 - **`create_cursor_config`** - Create Cursor auto-loading configuration
 - **`create_shared_tech_stack`** - Create deduplicated version config
 - **`create_maintenance_scripts`** - Create automation scripts
+- **`setup_auto_context_loading`** 🆕 - Enable automatic context loading (2025)
 
 ## 📋 PROJECT-TEMPLATE.md Contents
 
@@ -234,6 +242,27 @@ Claude: Based on the patterns in agent-context/CODEBASE-CONTEXT.md:
 - Using your try-catch + toast error handling
 [Generates perfect, consistent code]
 ```
+
+## 🤖 Automatic Context Loading (2025)
+
+No more manually reminding AI to read context! The new automation features include:
+
+### For Cursor IDE
+- **Project Rules**: `.cursor/rules/*.mdc` files auto-attach to every file
+- **Path Patterns**: Rules apply based on file types and locations
+- **Quality Gates**: Automatic checks before code generation
+
+### For Claude Desktop  
+- **@ Mentions**: Type `@context` to access all context files
+- **Project MCP**: `.mcp.json` configures auto-start and resource exposure
+- **Global Rules**: `~/.claude/CLAUDE.md` for all projects
+
+### Setup Command
+```
+Please use MCP Context Manager's setup_auto_context_loading tool
+```
+
+This creates all necessary configuration files for both tools.
 
 ## 🚀 Advanced Usage
 
