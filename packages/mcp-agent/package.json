@@ -1,6 +1,6 @@
 {
   "name": "mcp-context-manager",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "MCP Context Management Server - Provides codebase context to AI agents",
   "type": "module",
   "main": "dist/index.js",
@@ -30,11 +30,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_USERNAME/mcp-context-manager"
+    "url": "https://github.com/bswa006/mcp-context-manager"
   },
-  "homepage": "https://github.com/YOUR_USERNAME/mcp-context-manager#readme",
+  "homepage": "https://github.com/bswa006/mcp-context-manager#readme",
   "bugs": {
-    "url": "https://github.com/YOUR_USERNAME/mcp-context-manager/issues"
+    "url": "https://github.com/bswa006/mcp-context-manager/issues"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.5.0",
