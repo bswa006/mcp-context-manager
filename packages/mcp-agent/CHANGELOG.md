@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.5.0] - 2025-01-08
+
+### Major Documentation Overhaul
+- Complete rewrite of README to explain what MCP actually does
+- Added CRITICAL WARNING about using MCP tools vs manual instructions
+- Removed misleading manual instructions that bypass quality checks
+- Added clear examples of right vs wrong usage
+
+### Fixed
+- Documentation now accurately describes enforcement mechanism
+- Explains why manual instructions don't work
+- Shows what actually happens during analysis
+- Clear troubleshooting for common issues
+
+### Added
+- Real example showing actual tool execution
+- Evidence requirements explanation
+- Quality gates documentation
+- Verification criteria for good vs bad results
+
 ## [1.4.2] - 2025-01-08
 
 ### Fixed

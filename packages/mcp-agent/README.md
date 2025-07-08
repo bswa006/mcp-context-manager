@@ -1,14 +1,38 @@
 # MCP Context Manager
 
-> **The Missing Link**: Provides PROJECT-TEMPLATE.md to AI agents and ensures they use it for consistent, context-aware code generation.
+> **Force AI to TRULY understand your codebase before generating code**
 
-## 🎯 What It Does
+## 🎯 What This MCP Server Actually Does
 
-MCP Context Manager is a Model Context Protocol (MCP) server that:
+MCP Context Manager is NOT just a template provider. It's a quality enforcement system that:
 
-1. **Provides Templates** - Gives AI agents the PROJECT-TEMPLATE.md template
-2. **Guides Analysis** - Tells AI to analyze your codebase and fill the template
-3. **Ensures Usage** - Monitors that AI uses the context when generating code
+1. **Forces Deep Analysis** - Makes AI read EVERY source file before creating documentation
+2. **Requires Evidence** - Every pattern claimed must have 5+ code examples
+3. **Prevents Hallucination** - Templates must be based on actual code, not assumptions
+4. **Automates Context Loading** - Sets up auto-loading so AI always uses the context
+
+## ⚠️ CRITICAL WARNING
+
+### This MCP Only Works If You Use The Tools!
+
+**✅ CORRECT (enforces analysis):**
+```
+Please use MCP Context Manager's complete_setup_workflow tool
+```
+
+**❌ WRONG (bypasses all quality checks):**
+```
+Please analyze this codebase and create context files...
+Please create agent-context/PROJECT-TEMPLATE.md...
+Read every source file and...
+```
+
+The MCP provides **tools** with quality gates. Manual instructions bypass everything!
+
+```
+MCP Tools: analyze_codebase_deeply → MUST complete → create_project_template
+Manual: "create files" → AI creates generic files → No analysis!
+```
 
 ## 🤔 Claude Desktop vs Cursor
 
@@ -22,54 +46,25 @@ MCP Context Manager is a Model Context Protocol (MCP) server that:
 | **Tool Limit** | No limit | 40 max |
 | **OAuth Support** | Varies | ✅ Built-in |
 
-## 🚀 Quick Start Guide
+## 🚀 The ONLY Correct Way to Use This
 
-### Prerequisites
-- Node.js 18+ installed (`node --version` to check)
-- Your project in a git repository (recommended)
-- Claude Desktop or Cursor IDE
+### For Both Claude Desktop and Cursor
 
-### For Claude Desktop Users
+#### Step 1: Configure MCP
 
-#### Step 1: Configure Claude Desktop
-
-1. Open Claude Desktop settings
-2. Go to the MCP section
-3. Add this configuration to your MCP servers:
-
+**Claude Desktop:** Add to `claude_desktop_config.json`:
 ```json
 {
-  "context-manager": {
-    "command": "npx",
-    "args": ["mcp-context-manager", "serve"],
-    "env": {}
+  "mcpServers": {
+    "context-manager": {
+      "command": "npx",
+      "args": ["mcp-context-manager", "serve"]
+    }
   }
 }
 ```
 
-4. Restart Claude Desktop to load the MCP server
-
-#### Step 2: Run the Magic Command
-
-In Claude Desktop, simply say:
-
-```
-Please use MCP Context Manager's complete_setup_workflow tool to analyze, document, and setup automatic context loading for this project.
-```
-
-#### Step 3: Done! 
-- Context files are created in `agent-context/`
-- Auto-loading is enabled - use `@context` to access files
-- No need to remind Claude to read context anymore!
-
----
-
-### For Cursor Users
-
-#### Step 1: Configure Cursor
-
-1. Create `.cursor/mcp.json` in your project root:
-
+**Cursor:** Create `.cursor/mcp.json`:
 ```json
 {
   "context-manager": {
@@ -79,101 +74,89 @@ Please use MCP Context Manager's complete_setup_workflow tool to analyze, docume
 }
 ```
 
-2. Go to Cursor Settings → MCP Tools
-3. Click refresh to load your MCP server
-4. Green indicator = connected!
+#### Step 2: Use MCP Tools (NOT Manual Instructions!)
 
-#### Step 2: Run the Magic Command
-
-In Cursor Composer or chat, say:
-
+**✅ CORRECT - Uses MCP tools with enforcement:**
 ```
 Please use MCP Context Manager's complete_setup_workflow tool to analyze, document, and setup automatic context loading for this project.
 ```
 
-The Composer Agent will automatically use the MCP tools to create all context files.
+**❌ WRONG - Manual instructions bypass quality checks:**
+```
+Please analyze this codebase and create context files...
+```
 
-#### Step 3: Enable Auto-Run (Optional)
-For faster workflow, enable "Auto-run" in Cursor to let the agent use tools without asking permission each time.
+#### Step 3: What Actually Happens
 
----
+1. **analyze_codebase_deeply** runs first (2-3 minutes)
+   - AI reads EVERY .ts/.tsx/.js/.jsx file
+   - Collects evidence for patterns
+   - Builds understanding of architecture
 
-### What Gets Created
+2. **create_project_template** checks analysis was done
+   - Rejects if analysis incomplete
+   - Forces evidence-based content
 
-Both approaches create these files:
+3. **All other tools** create files with real data
+   - ADRs with actual patterns found
+   - Context with code examples
+   - Auto-loading rules configured
+
+## 📁 What Gets Created (WITH Evidence!)
+
+After the MCP tools complete their analysis:
+
 ```
 agent-context/
-├── PROJECT-TEMPLATE.md      ✓ Complete project overview
-├── CODEBASE-CONTEXT.md      ✓ Your specific patterns
-├── .context7.yaml           ✓ Hallucination prevention
+├── PROJECT-TEMPLATE.md      # Filled with YOUR project data
+├── CODEBASE-CONTEXT.md      # YOUR actual patterns with code examples
+├── .context7.yaml           # Prevents hallucination with YOUR versions
 ├── shared/
-│   └── tech-stack.yaml      ✓ Version management
-├── adr/                     ✓ Architecture decisions (6 files)
-└── directories/             ✓ Directory-specific docs
+│   └── tech-stack.yaml      # YOUR actual dependencies + usage info
+├── adr/                     # 6 architecture files based on YOUR code
+│   ├── 001-frontend-framework.md  # "React because found in 47 components"
+│   ├── 002-state-management.md    # "Zustand found in src/stores/"
+│   └── ...                        # All with evidence!
+└── directories/             # READMEs for YOUR actual directories
 
-.cursor/rules/               ✓ Auto-loading rules (Cursor)
-.mcp.json                    ✓ Project config (Claude)
+.cursor/rules/               # Auto-loading for Cursor
+.mcp.json                    # Auto-start config
 ```
 
-### Verify Everything Works
+## ✅ How to Verify It Worked
 
-**Claude Desktop**: 
-- Type `@context` to see available context files
-- MCP server status in settings shows "Running"
+**Good Result:**
+- Files contain specific examples: "PascalCase found in Button.tsx, UserCard.tsx..."
+- Patterns reference actual files: "Error handling pattern from userService.ts:45"
+- Tech choices show usage: "React 18.3 (hooks in 47 files, Suspense in 3)"
 
-**Cursor**: 
-- Green indicator in Settings → MCP Tools
-- "Available Tools" shows MCP Context Manager tools
-- Open any code file - context rules auto-attach
+**Bad Result (means AI skipped analysis):**
+- Generic content: "Project uses React hooks"
+- No file references: "Follow naming conventions"
+- Empty or missing files
 
-No more "Please read agent-context files" - it's automatic! 🎉
+## 🔧 How MCP Tools Enforce Quality
 
-## 📁 What Gets Created
+The MCP server provides tools with built-in enforcement:
 
-```
-your-project/
-├── agent-context/              # All AI context files
-│   ├── PROJECT-TEMPLATE.md     # Complete project documentation
-│   ├── CODEBASE-CONTEXT.md     # Your specific patterns & conventions
-│   ├── .context7.yaml          # Hallucination prevention config
-│   ├── adr/                    # Architecture Decision Records
-│   │   └── *.md               # Individual ADRs
-│   └── directories/            # Directory-specific docs
-│       ├── src-components-README.md
-│       ├── src-services-README.md
-│       └── src-hooks-README.md
-├── src/
-│   ├── components/
-│   │   └── README.md          # Component patterns (also in agent-context)
-│   ├── services/
-│   │   └── README.md          # Service patterns (also in agent-context)
-│   └── hooks/
-│       └── README.md          # Hook patterns (also in agent-context)
-└── .mcp/
-    └── INSTRUCTIONS.md        # How to use MCP
-```
+### The Workflow Tools
+1. **`complete_setup_workflow`** - Runs the entire process in correct order
+2. **`analyze_codebase_deeply`** - FORCES AI to read every source file
+3. **`create_project_template`** - REQUIRES `analysis_complete: true` parameter
 
-## 🔧 Available MCP Tools
+### Quality Gates
+- ❌ Can't create templates without analysis
+- ❌ Can't claim patterns without evidence  
+- ❌ Can't use generic descriptions
+- ✅ Must reference specific files
+- ✅ Must show code examples
+- ✅ Must count occurrences
 
-The server provides these tools to AI agents:
-
-**Core Tools:**
-- **`analyze_codebase_deeply`** 🔍 - MANDATORY FIRST STEP: Deep analysis of every file
-- **`create_project_template`** - Create PROJECT-TEMPLATE.md (requires analysis_complete: true)
-- **`create_codebase_context`** - Create CODEBASE-CONTEXT.md with evidence-based patterns
-- **`create_initial_adrs`** - Create initial Architecture Decision Records
-
-**Additional Tools:**
-- **`create_adr`** - Create a specific Architecture Decision Record
-- **`create_directory_readme`** - Create README for a specific directory
-- **`check_context_usage`** - Verify AI is using context files
-- **`create_cursor_config`** - Create Cursor auto-loading configuration
-- **`create_shared_tech_stack`** - Create deduplicated version config
-- **`create_maintenance_scripts`** - Create automation scripts
-
-**Automation Tools (NEW!):**
-- **`setup_auto_context_loading`** 🆕 - Enable automatic context loading
-- **`complete_setup_workflow`** 🚀 - One command to do everything!
+### What Each Tool Does
+- **`create_codebase_context`** - Documents YOUR patterns with evidence
+- **`create_initial_adrs`** - Creates 6 architecture decisions from analysis
+- **`create_shared_tech_stack`** - Lists versions WITH usage statistics
+- **`setup_auto_context_loading`** - Configures auto-loading for both tools
 
 ## 📋 PROJECT-TEMPLATE.md Contents
 
@@ -188,13 +171,19 @@ The template includes:
 - Common commands
 - Troubleshooting guides
 
-## 🎯 Benefits
+## 🎯 Why This Matters
 
-Based on research:
-- **53% better test coverage** with proper context
-- **30% fewer prompt tokens** needed
-- **84% fewer security issues** in generated code
-- **5-10X faster development** with consistent patterns
+**Without MCP Enforcement:**
+- AI creates generic templates
+- Patterns don't match your code
+- Documentation becomes outdated
+- Generated code is inconsistent
+
+**With MCP Enforcement:**
+- Templates reflect YOUR actual code
+- Every pattern has evidence
+- AI understands YOUR architecture
+- Generated code matches YOUR style
 
 ## 🤖 How It Works
 
@@ -233,21 +222,28 @@ mcp-context check
 
 ## 🛠️ Troubleshooting
 
+### "AI created files without analyzing code"
+**Problem**: You used manual instructions instead of MCP tools
+**Solution**: Use the exact command:
+```
+Please use MCP Context Manager's complete_setup_workflow tool to analyze, document, and setup automatic context loading for this project.
+```
+
 ### "MCP server not found"
-- Make sure you added the configuration to Claude Desktop settings
-- Restart Claude Desktop after adding the configuration
+**Claude**: Check configuration in settings, restart Claude Desktop
+**Cursor**: Check Settings → MCP Tools for green indicator
 
-### Empty folders (adr/, scripts/)
-The AI needs to create the actual files. Say:
+### "Empty folders (adr/, scripts/)"
+The AI skipped the analysis. Tell it:
 ```
-The adr and scripts folders are empty. Please create all the ADR files and scripts as instructed by the MCP tools.
+The folders are empty. Please run the analyze_codebase_deeply tool first, then create the files with evidence from your analysis.
 ```
 
-### "Command not found"
-Make sure you have Node.js 18+ installed:
-```bash
-node --version  # Should be 18.0.0 or higher
-```
+### "Generic content without examples"
+The AI didn't actually analyze. Check if:
+- Files contain specific file references (Button.tsx, userService.ts)
+- Patterns show counts (found in 23 files)
+- Examples include line numbers (pattern at line 45)
 
 ## 📊 What You'll Get
 
@@ -261,33 +257,47 @@ After running the magic prompt, your project will have:
 | tech-stack.yaml | Version management | 🔒 No version conflicts |
 | Directory READMEs | API documentation | 📚 Clear interfaces |
 
-## 🎯 Real Example
+## 🎯 Real Example: What Actually Happens
 
-### Quick Setup (One Command)
 ```
 You: Please use MCP Context Manager's complete_setup_workflow tool to analyze, document, and setup automatic context loading for this project.
 
-Claude: I'll run the complete MCP Context Manager workflow...
+Claude: I'll run the complete MCP Context Manager workflow. Let me start with the deep analysis.
 
-[Following the 7-step process]
-[2-3 minutes of analysis and file creation]
+[Running analyze_codebase_deeply tool]
+Starting comprehensive codebase analysis...
+Reading src/components/Button.tsx...
+Reading src/components/UserCard.tsx...
+Reading src/components/NavigationBar.tsx...
+[... reads ALL 147 source files ...]
 
-✅ Created 15 context files
-📊 Analyzed 147 source files  
-🎯 Documented 23 patterns
-🏗️ Generated 6 architecture decisions
-🤖 Enabled automatic context loading
+Analysis complete! Found:
+- Components: PascalCase naming (Button.tsx, UserCard.tsx, NavBar.tsx in src/components/)
+- State: Zustand stores (authStore.ts, uiStore.ts in src/stores/)
+- API: Axios with interceptors (found in 23 service files)
+- Error handling: try-catch with toast notifications (pattern in userService.ts:45)
 
-Your project is fully documented with auto-loading enabled!
+[Running create_project_template tool - requires analysis_complete: true]
+Creating PROJECT-TEMPLATE.md with evidence from analysis...
 
-You: Create a new user profile component.
+[Running create_initial_adrs tool]
+Creating ADR files based on discovered patterns:
+- 001-frontend-framework.md: "React 18.3 - found hooks in 47 files"
+- 002-state-management.md: "Zustand v4.5 - stores pattern in src/stores/"
+[... creates all 6 ADRs with evidence ...]
 
-Claude: [Automatically reads context without being asked]
-Based on your established patterns:
-- Using PascalCase naming (like Button.tsx, UserCard.tsx)
-- Following your Zustand pattern from authStore.ts
-- Using your try-catch + toast error handling
-[Generates perfect, consistent code]
+✅ Created 15 context files with REAL data from YOUR code
+📊 Analyzed 147 source files (not just package.json!)
+🎯 Documented 23 patterns with 200+ code examples
+🤖 Auto-loading configured
+
+You: Create a user profile component.
+
+Claude: [Reads context automatically] Based on your codebase patterns:
+- Component naming: UserProfile.tsx (matching Button.tsx, UserCard.tsx pattern)
+- State: Using authStore from src/stores/authStore.ts
+- Error handling: try-catch with toast as in userService.ts:45
+[Generates code that EXACTLY matches your patterns]
 ```
 
 ## 🤖 Automatic Context Loading (2025)
@@ -341,4 +351,4 @@ MIT
 
 ---
 
-**Remember**: The key to AI-assisted development is context. This tool ensures your AI always has it.
+**Remember**: This MCP doesn't just provide templates - it FORCES AI to understand your code first. But only if you use the tools, not manual instructions!
