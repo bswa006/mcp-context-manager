@@ -13,6 +13,13 @@ import { detectExistingPatterns } from './analyzers/pattern-detector.js';
 import { initializeAgentWorkspace } from './workspace/initialize-workspace.js';
 import { generateTestsForCoverage } from './testing/test-generator.js';
 import { trackAgentPerformance } from './performance/track-performance.js';
+import { createConversationStarters } from './workspace/create-conversation-starters.js';
+import { createTokenOptimizer } from './workspace/create-token-optimizer.js';
+import { createIDEConfigs } from './workspace/create-ide-configs.js';
+import { setupPersistenceAutomation } from './workspace/setup-persistence-automation.js';
+import { createMaintenanceWorkflows } from './workspace/create-maintenance-workflows.js';
+import { analyzeCodebaseDeeply } from './workspace/analyze-codebase-deeply.js';
+import { completeSetupWorkflow } from './workspace/complete-setup-workflow.js';
 import { toolDefinitions } from './tool-definitions.js';
 
 export function setupTools(server: Server) {
@@ -211,6 +218,153 @@ export function setupTools(server: Server) {
           }).parse(args);
           
           const result = await trackAgentPerformance(params);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2),
+              },
+            ],
+          };
+        }
+
+        case 'create_conversation_starters': {
+          const params = z.object({
+            projectPath: z.string(),
+            analysisId: z.string().optional(),
+            includeQuickTasks: z.boolean().optional(),
+            includeCurrentWork: z.boolean().optional(),
+            tokenLimit: z.number().optional(),
+            customTasks: z.array(z.string()).optional(),
+          }).parse(args);
+          
+          const result = await createConversationStarters(params);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2),
+              },
+            ],
+          };
+        }
+
+        case 'create_token_optimizer': {
+          const params = z.object({
+            projectPath: z.string(),
+            analysisId: z.string().optional(),
+            tiers: z.array(z.enum(['minimal', 'standard', 'comprehensive'])).optional(),
+            trackUsage: z.boolean().optional(),
+            generateMetrics: z.boolean().optional(),
+          }).parse(args);
+          
+          const result = await createTokenOptimizer(params);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2),
+              },
+            ],
+          };
+        }
+
+        case 'create_ide_configs': {
+          const params = z.object({
+            projectPath: z.string(),
+            analysisId: z.string().optional(),
+            ide: z.enum(['cursor', 'vscode', 'intellij', 'all']),
+            autoLoadContext: z.boolean().optional(),
+            customRules: z.array(z.string()).optional(),
+            includeDebugConfigs: z.boolean().optional(),
+          }).parse(args);
+          
+          const result = await createIDEConfigs(params);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2),
+              },
+            ],
+          };
+        }
+
+        case 'setup_persistence_automation': {
+          const params = z.object({
+            projectPath: z.string(),
+            analysisId: z.string().optional(),
+            updateSchedule: z.enum(['daily', 'weekly', 'on-change', 'manual']),
+            gitHooks: z.boolean().optional(),
+            monitoring: z.boolean().optional(),
+            notifications: z.object({
+              email: z.string().optional(),
+              slack: z.string().optional(),
+            }).optional(),
+          }).parse(args);
+          
+          const result = await setupPersistenceAutomation(params);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2),
+              },
+            ],
+          };
+        }
+
+        case 'create_maintenance_workflows': {
+          const params = z.object({
+            projectPath: z.string(),
+            analysisId: z.string().optional(),
+            teamSize: z.number(),
+            updateFrequency: z.enum(['daily', 'weekly', 'biweekly', 'monthly']),
+            includeChecklists: z.boolean().optional(),
+            includeMetrics: z.boolean().optional(),
+            includeTraining: z.boolean().optional(),
+          }).parse(args);
+          
+          const result = await createMaintenanceWorkflows(params);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2),
+              },
+            ],
+          };
+        }
+
+        case 'analyze_codebase_deeply': {
+          const params = z.object({
+            projectPath: z.string(),
+            maxDepth: z.number().optional(),
+            excludePatterns: z.array(z.string()).optional(),
+          }).parse(args);
+          
+          const result = await analyzeCodebaseDeeply(params);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2),
+              },
+            ],
+          };
+        }
+
+        case 'complete_setup_workflow': {
+          const params = z.object({
+            projectPath: z.string(),
+            projectName: z.string(),
+            teamSize: z.number().optional(),
+            updateSchedule: z.enum(['daily', 'weekly', 'on-change', 'manual']).optional(),
+            ide: z.enum(['cursor', 'vscode', 'intellij', 'all']).optional(),
+            includeAll: z.boolean().optional(),
+          }).parse(args);
+          
+          const result = await completeSetupWorkflow(params);
           return {
             content: [
               {
